@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 加载配置文件 -->
+    <context:property-placeholder location="classpath:database.properties"/>
+    <!-- c3p0方式：选用链接数据库的方式 -->
+    <bean id="c3p0DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="initialPoolSize" value="${db.c3p0.initPoolSize}"/>
+        <property name="minPoolSize" value="${db.c3p0.minPoolSize}"/>
+        <property name="maxPoolSize" value="${db.c3p0.maxPoolSize}"/>
+    </bean>
+
+    <!-- 加载配置信息和数据库映射配置 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="c3p0DataSource"/>
+        <property name="configLocation" value="classpath:sqlMapConfig.xml"/>
+        <property name="typeAliasesPackage" value="top.so.entity" />
+        <property name="mapperLocations" value="classpath:sqlmap/*.xml"/>
+
+        <!-- 配置mybatis分页插件PageHelper -->
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>
+                            dialect=mysql
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+
+
+    </bean>
+
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+    <alias name="sqlSessionTemplate" alias="sqlSession"/>
+
+
+</beans>

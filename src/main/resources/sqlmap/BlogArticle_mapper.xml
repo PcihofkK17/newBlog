@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN "
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="top.so.dao.impl.BlogArticleDaoImpl">
+    <resultMap id="BlogArticleMap" type="top.so.entity.BlogArticle">
+        <result column="articleID" property="articleID"/>
+        <result column="articleName" property="articleName"/>
+        <result column="genTime" property="genTime"/>
+        <result column="articleContent" property="articleContent"/>
+        <result column="readNum" property="readNum"/>
+        <result column="likeNum" property="likeNum"/>
+        <result column="commentNum" property="commentNum"/>
+        <result column="userID" property="userID"/>
+    </resultMap>
+
+    <sql id="table_name">blogarticle</sql>
+    <!--<insert id="insert" parameterType="top.so.entity.BlogArticle">-->
+        <!--INSERT INTO-->
+        <!--<include refid="table_name"/>-->
+        <!--(username,pwd,name,sex,age)-->
+        <!--VALUES (-->
+        <!--#{username},#{password},#{name},#{sex},#{age}-->
+        <!--)-->
+    <!--</insert>-->
+
+    <!--<delete id="delete" parameterType="java.lang.Integer">-->
+        <!--DELETE FROM-->
+        <!--<include refid="table_name"/>-->
+        <!--WHERE id=#{id}-->
+    <!--</delete>-->
+
+
+    <update id="update" parameterType="top.so.entity.BlogArticle">
+        UPDATE
+        <include refid="table_name"/>
+        <set>
+            <if test="articleName != null and articleName !='' ">articleName=#{articleName},</if>
+            <if test="genTime != null and genTime !=''">genTime=#{genTime},</if>
+            <if test="articleContent != null and articleContent !=''">articleContent=#{articleContent},</if>
+            <if test="readNum != null and readNum !=''">readNum=#{readNum},</if>
+            <if test="likeNum != null and likeNum !=''" >likeNum=#{likeNum},</if>
+            <if test="commentNum != null and commentNum !=''" >commentNum=#{commentNum},</if>
+            <if test="userID != null and userID !=''" >userID=#{userID},</if>
+        </set>
+        WHERE articleID=#{articleID}
+    </update>
+
+    <sql id="condition">
+        <where>
+            <if test="articleID != null">and articleID=#{articleID}</if>
+            <if test="articleName != null and articleName !=''">and articleName=#{articleName}</if>
+            <if test="genTime != null and genTime !=''">and genTime=#{genTime}</if>
+            <if test="articleContent != null and articleContent !=''">and articleContent like #{articleContent}</if>
+            <if test="readNum != null and readNum !=''">and readNum=#{readNum}</if>
+            <if test="likeNum != null and likeNum !=''">and likeNum=#{likeNum}</if>
+            <if test="commentNum != null and commentNum !=''">and commentNum=#{commentNum}</if>
+            <if test="userID != null and userID !=''">and userID=#{userID}</if>
+        </where>
+    </sql>
+
+    <select id="selectAll" resultMap="BlogArticleMap" parameterType="top.so.entity.BlogArticle">
+        SELECT
+        *
+        FROM
+        <include refid="table_name"/>
+        <include refid="condition"/>
+        ORDER BY genTime DESC
+    </select>
+</mapper>

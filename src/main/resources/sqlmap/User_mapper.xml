@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN "
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.so.dao.impl.UserDaoImpl">
+    <resultMap id="UserMap" type="top.so.entity.User">
+        <result column="userID" property="userID"></result>
+        <result column="loginName" property="loginName"></result>
+        <result column="password" property="password"></result>
+    </resultMap>
+
+    <sql id="table_name">user </sql>
+
+
+
+    <sql id="condition">
+        <where>
+            <if test="userID != null"> and userID=#{userID}</if>
+            <if test="loginName != null and loginName !=''" > and loginName=#{loginName}</if>
+            <if test="password != null and password !=''"> and password=#{password}</if>
+        </where>
+    </sql>
+
+    <select id="selectUser" resultMap="UserMap" parameterType="top.so.entity.User">
+        SELECT
+        *
+        FROM
+        <include refid="table_name" />
+        <include refid="condition" />
+    </select>
+
+    <select id="selectUserByUserID" resultMap="UserMap" parameterType="string">
+        SELECT
+        *
+        FROM
+        <include refid="table_name" />
+        WHERE
+        userID=#{userID}
+    </select>
+
+
+</mapper>
