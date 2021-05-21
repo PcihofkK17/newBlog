@@ -13,7 +13,7 @@
     <maven_compiler_plugin_version>3.1</maven_compiler_plugin_version>
     <maven_war_plugin_version>2.4</maven_war_plugin_version>
     <!-- spring versions -->
-    <spring_version>3.2.2.RELEASE</spring_version>
+    <spring_version>4.0.6.RELEASE</spring_version>
     <spring_batch_version>2.2.2.RELEASE</spring_batch_version>
     <spring_data_commons_version>1.6.3.RELEASE</spring_data_commons_version>
     <aspectj_version>1.7.4</aspectj_version>
@@ -28,8 +28,8 @@
     <!-- jackson -->
     <jackson_version>1.9.13</jackson_version>
     <!-- mybatis -->
-    <mybatis_version>3.2.3</mybatis_version>
-    <mybatis_spring_version>1.1.0</mybatis_spring_version>
+    <mybatis_version>3.2.5</mybatis_version>
+    <mybatis_spring_version>1.2.0</mybatis_spring_version>
   </properties>
 
   <dependencies>

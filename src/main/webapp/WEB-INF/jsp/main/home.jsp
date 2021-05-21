@@ -20,7 +20,6 @@
     <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/res/css/style.css">
 
     <script src="${pageContext.request.contextPath}/res/js/jquery-1.11.2.min.js"></script>
-    <script src="${pageContext.request.contextPath}/res/js/bootstrap.js"></script>
     <script>
         var onPageNum;
         $(function(){
@@ -36,17 +35,12 @@
             };
             $.ajax({
                 type: "POST",
-                url: "/home/                                         ",
+                url: "/home/loadMoreBlogArticleList",
                 data: params,
                 dataType:"html", //ajax返回值设置为text（json格式也可用它返回，可打印出结果，也可设置成json）
                 success: function(date){
-                 //   var obj = JSON.parse(json);  //使用这个方法解析json
-                  //  var state_value = obj.model;  //result是和action中定义的result变量的get方法对应的
-                 //   var array = eval(state_value);
-                    // alert(obj);
                     var articleList = $(date).find("#articleList");
                     var articleCol =  articleList.find("#articleCol").html();
-                    alert(articleCol);
                     if(articleCol!=null){
                         $("#page").append(articleList).html() ;
                     }
@@ -69,33 +63,7 @@
 <body>
 <!-- Main Navigation
 ================================================== -->
-<nav id="tf-menu" class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#"><img src="${pageContext.request.contextPath}/res/img/logo.png" alt="..."></a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="home.html" class="scroll">主页</a></li>
-                <li><a href="Blog Column.html" class="scroll">博客专栏 </a></li>
-                <li><a href="#tf-works" class="scroll">我的博客</a></li>
-                <li><a href="#tf-process" class="scroll">排行榜</a></li>
-                <li><a href="#tf-pricing"></a></li>
-                <li><a href="#tf-blog"></a></li>
-                <li><a href="#tf-contact" class="scroll" data-toggle="modal" data-target="#myModal">登录</a></li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
+<jsp:include   page="nav.jsp" flush="true"/>
 
 
 
@@ -188,51 +156,6 @@
         </ul>
     </div><!-- end container -->
 </div>
-
-
-
-<!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-    <div class="modal-dialog" style=" margin: 200px auto; ">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title" id="myModalLabel">
-                    账号登录
-                </h4>
-            </div>
-
-            <form action="/user/login" method="post">
-                <div class="modal-body">
-                    <div class="input-group">
-                        <span class="input-group-addon">账号</span>
-                        <input type="text" class="form-control" id="loginName" name="loginName" />
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">密码</span>
-                        <input type="password" class="form-control" id="password" name="password" />
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-default" >登录
-                    </button>
-                    <a  class="btn btn-default" style="    color: #ffffff;     background: #FFCC33;">注册
-                    </a>
-                </div>
-            </form>
-        </div><!-- /.modal-content -->
-        </div>
-    </div><!-- /.modal -->
-</div>
-
-
-
-
-
-
 
 
 </body>

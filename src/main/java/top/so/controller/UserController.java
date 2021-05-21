@@ -27,4 +27,34 @@ public class UserController {
       }
        return mv;
     }
+
+    @RequestMapping(value = "goRegister",method = {RequestMethod.GET})
+    public ModelAndView goRegister(){
+        ModelAndView mv = new ModelAndView("register");
+        return mv;
+    }
+
+    @RequestMapping(value = "doRegister",method = {RequestMethod.POST})
+    public ModelAndView doRegister(UserDTO userDTO){
+        ModelAndView mv = new ModelAndView();
+        List<UserDTO> userDTOList = userService.selectUser(userDTO);
+        boolean flag = true;
+        for(UserDTO u:userDTOList){
+            if(u.getLoginName().equals(userDTO.getLoginName())){
+                flag = false;
+            }
+        }
+        if(flag && userService.insertUser(userDTO)){
+            mv.setViewName("login");
+        }
+        else{
+            mv.addObject("hint","注册失败！");
+            mv.addObject("wrongInfo","注册账号重复！");
+            mv.setViewName("fail");
+        }
+        return mv;
+    }
+
+
+
 }

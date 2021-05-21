@@ -9,6 +9,7 @@ import top.so.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -22,8 +23,11 @@ public class UserServiceImpl implements UserService {
         List<UserDTO> userDTOList = POJOToDTO(userList);
         return userDTOList;
     }
-
-
+    public boolean insertUser(UserDTO userDTO) {
+        UUID uuid = UUID.randomUUID();
+        userDTO.setUserID(String.valueOf(uuid));
+        return userDao.insertUser(DTOToPOJO(userDTO));
+    }
 
 
     /**

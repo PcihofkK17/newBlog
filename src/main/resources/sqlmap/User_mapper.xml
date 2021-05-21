@@ -39,4 +39,19 @@
     </select>
 
 
+
+    <insert id="insert" parameterType="top.so.entity.User">
+    INSERT INTO
+    <include refid="table_name"/>
+    (userID,loginName,password)
+    VALUES (
+    #{userID},#{loginName},#{password}
+    )
+    </insert>
+
+
+
+
+
+
 </mapper>

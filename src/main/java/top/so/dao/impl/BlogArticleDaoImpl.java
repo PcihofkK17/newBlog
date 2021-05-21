@@ -1,15 +1,15 @@
 package top.so.dao.impl;
 
 import com.github.pagehelper.PageHelper;
-import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
+import top.so.dao.AbstractBaseDao;
 import top.so.dao.BlogArticleDao;
 import top.so.entity.BlogArticle;
 
 import java.util.List;
 
 @Repository
-public class BlogArticleDaoImpl extends SqlSessionDaoSupport implements BlogArticleDao {
+public class BlogArticleDaoImpl extends AbstractBaseDao implements BlogArticleDao {
     private static int PAGENUM=0;
 
     public List<BlogArticle> selectAll(BlogArticle blogArticle) {

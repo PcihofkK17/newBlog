@@ -35,7 +35,6 @@ public class HomeController {
     public ModelAndView loadMoreBlogArticleList(BlogArticleDTO blogArticleDTO, int pageNum){
         List<BlogArticleDTO> blogArticleDTOList =blogArticleService.selectBlogArticleWithPage(blogArticleDTO,pageNum);
         ModelAndView mv = new ModelAndView("home");
-        System.out.println(pageNum);
         if(blogArticleDTOList.isEmpty()){
             mv.addObject("blogArticleDTOList",null);
             return mv;
@@ -64,6 +63,15 @@ public class HomeController {
        mv.addObject("blogArticleDTO",blogArticleDTO);
         return mv;
     }
+
+
+    @RequestMapping(value = "toLoginPage",method = {RequestMethod.GET})
+    public ModelAndView toLoginPage(){
+        ModelAndView mv = new ModelAndView("login");
+        return mv;
+    }
+
+
 
 
 }

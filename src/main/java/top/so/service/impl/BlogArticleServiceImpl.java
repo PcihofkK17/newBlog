@@ -52,6 +52,11 @@ public class BlogArticleServiceImpl implements BlogArticleService {
         return blogArticleDTO;
     }
 
+    public Boolean updateBlogArticle(BlogArticleDTO blogArticleDTO) {
+        return blogArticleDao.updateBlogArticle(DTOToPOJO(blogArticleDTO));
+    }
+
+
 
     /**
      * @Author so
@@ -80,9 +85,7 @@ public class BlogArticleServiceImpl implements BlogArticleService {
     }
 
 
-    public Boolean updateBlogArticle(BlogArticleDTO blogArticleDTO) {
-        return blogArticleDao.updateBlogArticle(DTOToPOJO(blogArticleDTO));
-    }
+
 
     /**
      * @Author so
