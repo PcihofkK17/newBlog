@@ -69,7 +69,7 @@
         <div class="row text-center"> <!-- contact form outer row with centered text-->
 
             <div class="col-md-5 col-md-offset-1">
-                <form id="contact-form" class="form" name="sentMessage" novalidate> <!-- form wrapper -->
+                <form action="/user/doRegister" method="post"  id="contact-form" class="form" name="sentMessage" novalidate> <!-- form wrapper -->
                     <div class="form-group"> <!-- Your name input -->
                         <input type="text" autocomplete="off" class="form-control" placeholder="请输入您的账号" id="loginName" name="loginName">
                         <p class="help-block text-danger"></p>

@@ -20,12 +20,15 @@ public class UserController {
     public ModelAndView login(UserDTO userDTO){
 
       List<UserDTO> userDTOList =  userService.selectUser(userDTO);
-        ModelAndView mv = new ModelAndView("home");
+        ModelAndView mv = new ModelAndView();
       for(UserDTO user:userDTOList){
           mv.addObject("userDTO",user);
-          break;
+          mv.setViewName("home");
+          return mv;
       }
-       return mv;
+      mv.addObject("wrongInfo","账号或密码错误!");
+      mv.setViewName("login");
+        return mv;
     }
 
     @RequestMapping(value = "goRegister",method = {RequestMethod.GET})

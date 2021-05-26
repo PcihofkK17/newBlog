@@ -12,7 +12,7 @@
 <body>
 
 <!--SIGN UP-->
-<h1>没有账号？<a href="/user/register">注册一个吧！</a></h1>
+<h1>没有账号？<a href="/user/goRegister">注册一个吧！</a></h1>
 <div class="login-form">
     <div class="head-info">
         <label class="lbl-1"> </label>
@@ -23,7 +23,7 @@
     <div class="avtar">
         <img src="${pageContext.request.contextPath}/res/img/loginImg/avtar.png" />
     </div>
-    <form>
+    <form action="">
         <input type="text" class="text" value="账号" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '账号';}" >
         <div class="key">
             <input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
