@@ -24,8 +24,9 @@ public class UserServiceImpl implements UserService {
         return userDTOList;
     }
     public boolean insertUser(UserDTO userDTO) {
+        //使用UUID随机生成用户ID号
         UUID uuid = UUID.randomUUID();
-        userDTO.setUserID(String.valueOf(uuid));
+        userDTO.setUserID(String.valueOf(uuid).replaceAll("-",""));
         return userDao.insertUser(DTOToPOJO(userDTO));
     }
 
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserService {
         User result = new User();
         if(userDTO!=null){
             result.setLoginName(userDTO.getLoginName());
-            result.setPassword(userDTO.getUserID());
+            result.setPassword(userDTO.getPassword());
             result.setUserID(userDTO.getUserID());
         }
         return result;
@@ -85,6 +86,5 @@ public class UserServiceImpl implements UserService {
         }
         return result;
     }
-
 
 }

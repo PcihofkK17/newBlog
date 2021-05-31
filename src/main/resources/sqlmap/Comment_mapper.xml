@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN "
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="top.so.dao.impl.CommentDaoImpl">
+    <resultMap id="CommentMap" type="top.so.entity.Comment">
+        <result column="commentID" property="commentID"/>
+        <result column="articleID" property="articleID"/>
+        <result column="userID" property="userID"/>
+        <result column="commentContent" property="commentContent"/>
+        <result column="commentDate" property="commentDate"/>
+    </resultMap>
+
+    <sql id="table_name">comment</sql>
+
+    <sql id="condition">
+        <where>
+            <if test="commentID != null">and commentID=#{commentID}</if>
+            <if test="articleID != null and articleID !=''">and articleID=#{articleID}</if>
+            <if test="userID != null and userID !=''">and userID = #{userID}</if>
+            <if test="commentContent != null and commentContent !=''">and commentContent=#{commentContent}</if>
+            <if test="commentDate != null and commentDate !=''">and commentDate=#{commentDate}</if>
+        </where>
+    </sql>
+
+    <select id="select" resultMap="CommentMap" parameterType="top.so.entity.Comment">
+        SELECT
+        *
+        FROM
+        <include refid="table_name"/>
+        <include refid="condition"/>
+        ORDER BY commentDate DESC
+    </select>
+
+    <insert id="insertComment" parameterType="top.so.entity.Comment">
+        INSERT INTO
+        <include refid="table_name"/>
+        (commentID,articleID,userID,commentContent,commentDate)
+        VALUES (
+        #{commentID},#{articleID},#{userID},#{commentContent},#{commentDate}
+        )
+    </insert>
+
+</mapper>

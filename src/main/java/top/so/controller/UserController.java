@@ -1,9 +1,12 @@
 package top.so.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import top.so.dto.UserDTO;
 import top.so.service.UserService;
@@ -12,20 +15,24 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/user")
+@SessionAttributes("currUser")//当前用户
 public class UserController {
 
+    @Autowired
     private UserService userService;
 
     @RequestMapping(value = "login",method = {RequestMethod.POST})
-    public ModelAndView login(UserDTO userDTO){
-
-      List<UserDTO> userDTOList =  userService.selectUser(userDTO);
+    public ModelAndView login(UserDTO userDTO, ModelMap modelMap){
         ModelAndView mv = new ModelAndView();
-      for(UserDTO user:userDTOList){
-          mv.addObject("userDTO",user);
-          mv.setViewName("home");
-          return mv;
-      }
+      List<UserDTO> userDTOList =  userService.selectUser(userDTO);
+      //判断结果集中是否有匹配的数据 如有则返回到主页
+          for(UserDTO user:userDTOList){
+              mv.addObject("userDTO",user);
+              mv.setViewName("redirect:/home");
+              modelMap.addAttribute("currUser",userDTO);
+              return mv;
+          }
+      //否则 提示账号或密码错误
       mv.addObject("wrongInfo","账号或密码错误!");
       mv.setViewName("login");
         return mv;
@@ -48,6 +55,7 @@ public class UserController {
             }
         }
         if(flag && userService.insertUser(userDTO)){
+            mv.addObject("hasCount","yep");
             mv.setViewName("login");
         }
         else{

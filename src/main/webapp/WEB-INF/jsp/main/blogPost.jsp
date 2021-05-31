@@ -1,5 +1,5 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,12 +31,101 @@
     ================================================== -->
     <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/res/css/style.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/res/css/responsive.css">
+    <script src="${pageContext.request.contextPath}/res/js/jquery-1.11.2.min.js"></script>
+    <script src="${pageContext.request.contextPath}/res/js/bootstrap.min.js"></script>
+    <script>
 
+
+        var onPageNum;
+        $(function(){
+            onPageNum  =  1;
+        });
+        function leaveComment() {
+            var currUser = '${currUser}';
+            if(currUser==''){
+                $("#alertInfo").show();
+                $("#alertInfo").text("您还未登录，无法发表评论！");
+                setTimeout(function(){$("#alertInfo").hide();},2000);
+                return ;
+            }
+
+            onPageNum =1;
+            var params = {
+                articleID : $("#articleID").val(),
+                commentContent:$("#commentContent").val(),
+                UserName:"${currUser.loginName}",
+            };
+            $.ajax({
+                type: "POST",
+                url: "/blog/leaveComment",
+                data: params,
+                dataType:"html", //ajax返回值设置为text（json格式也可用它返回，可打印出结果，也可设置成json）
+                success: function(date){
+                    var commentList = $(date).find("#commentList");
+                    if(commentList!=null){
+                        $("#comments").empty();
+                        $("#comments").append(commentList).html();
+                        $("#hasComment").empty();
+                    }
+                    $("#alertInfo").show();
+                    $("#alertInfo").text("评论成功！");
+                    setTimeout(function(){$("#alertInfo").hide();},2000);
+
+                },
+                error: function(date){
+                    alert("date=" + date);
+                    return false;
+                }
+            });
+        }
+
+        function page(goPage) {
+            if(goPage=="next"){
+                onPageNum = onPageNum+1;
+            }
+            else if(goPage=="prev"){
+                if(onPageNum<=1) return ;
+                else onPageNum = onPageNum-1;
+            }
+
+            var params = {
+                articleID : $("#articleID").val(),
+                pageNum : onPageNum
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/blog/goPage",
+                data: params,
+                dataType:"html", //ajax返回值设置为text（json格式也可用它返回，可打印出结果，也可设置成json）
+                success: function(date){
+                    var commentList = $(date).find("#commentList");
+                    if(commentList.html()!=null){
+                        $("#comments").empty();
+                        $("#comments").append(commentList).html();
+                    }
+                    else{
+                        onPageNum=onPageNum-1;
+                    }
+                },
+                error: function(date){
+                    alert("服务器错误");
+                    return false;
+                }
+            });
+
+
+
+
+        }// end function page
+        
+    </script>
 </head>
 <body>
 
 <!-- Main Navigation
 ================================================== -->
+
 <jsp:include   page="nav.jsp" flush="true"/>
 
 
@@ -98,73 +187,76 @@
                     </div>
 
                     <div id="comments" class="comment">
-                        <h4 class="text-uppercase">Comment <span class="comments">(3)</span></h4>
-                        <div class="media comment-block"> <!-- Comment Block #1 -->
-                            <div class="media-left media-top">
-                                <a href="#">
-                                    <img class="media-object" src="http://placehold.it/90x90" alt="...">
-                                </a>
+                        <%--评论数量，暂不显示--%>
+                        <%--<h4 class="text-uppercase">Comment <span class="comments">(3)</span></h4>--%>
+                        <c:if test="${commentDTOList==null}">
+                            <div id="hasComment">
+                                <div class="media comment-block">
+                                    <div class="media-body">
+                                        <div class="clearfix"></div>
+                                        暂无评论，快来留下你的评论吧！
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="media-body">
-                                <small class="pull-right">Feb. 15, 2015</small>
-                                <h5 class="media-heading">Post by <a href="#">Rudhi Design</a></h5>
-                                <div class="clearfix"></div>
-                                Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
-                                <div class="clearfix"></div>
-                                <a href="#" class="pull-right text-uppercase">Reply</a>
-                            </div>
-                        </div>
 
-                        <div class="media comment-block"> <!-- Comment Block #2 -->
-                            <div class="media-left media-top">
-                                <a href="#">
-                                    <img class="media-object" src="http://placehold.it/90x90" alt="...">
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <small class="pull-right">Feb. 15, 2015</small>
-                                <h5 class="media-heading">Post by <a href="#">Rudhi Design</a></h5>
-                                <div class="clearfix"></div>
-                                Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
-                                <div class="clearfix"></div>
-                                <a href="#" class="pull-right text-uppercase">Reply</a>
-                            </div>
-                        </div>
+                        </c:if>
 
-                        <div class="media comment-block"> <!-- Comment Block #3 -->
+                    <c:forEach var="comment" items="${commentDTOList}" varStatus="vs">
+
+
+                        <div class="media comment-block" id="commentList"> <!-- Comment Block #1 -->
                             <div class="media-left media-top">
                                 <a href="#">
                                     <img class="media-object" src="http://placehold.it/90x90" alt="...">
                                 </a>
                             </div>
                             <div class="media-body">
-                                <small class="pull-right">Feb. 15, 2015</small>
-                                <h5 class="media-heading">Post by <a href="#">Rudhi Design</a></h5>
+                                <small class="pull-right">${comment.commentDate}</small>
+                                <h5 class="media-heading" style="color:#ce8483"> <a href="#">${comment.userName}</a></h5>
                                 <div class="clearfix"></div>
-                                Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
+                                ${comment.commentContent}
                                 <div class="clearfix"></div>
-                                <a href="#" class="pull-right text-uppercase">Reply</a>
                             </div>
                         </div>
+                    </c:forEach>
                     </div>
+
+
+
+
+                    <c:if test="${commentDTOList!=null}">
+                    <div class="text-left"> <!-- Blogrol Pagination -->
+                        <nav>
+                            <ul class="pagination">
+                                <li>
+                                    <a href="" aria-label="Previous" onclick="page('prev');return false">
+                                        <span aria-hidden="true">Prev</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="" aria-label="Next" onclick="page('next');return false">
+                                        <span aria-hidden="true" >Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    </c:if>
+
+
+
 
                     <div class="comment">
-                        <h4 class="text-uppercase">Leave a Comment</h4>
-                        <form id="contact-form" class="form">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Your Name">
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Your Email">
-                                </div>
-                            </div>
-                            <textarea class="form-control" rows="6" placeholder="Your Comment..."></textarea>
-                            <button type="submit" class="btn btn-default en-btn">Submit Comment</button>
-                        </form>
+                        <h4 class="text-uppercase">留下你的评论吧！</h4>
+
+                            <input type="hidden" id="articleID" name="articleID" value="${blogArticleDTO.articleID}" />
+                            <textarea  id="commentContent" name="commentContent" class="form-control" rows="6" placeholder="你的评论..."></textarea>
+                            <button type="button" class="btn btn-default en-btn" onclick="leaveComment()">发表评论</button>
                     </div>
 
-                </div> <!-- end Left content col 8 -->
+                </div><!-- end Left content col 8 -->
 
                 <div class="col-md-4"> <!-- Blog Sidebar -->
                     <div class="sidebar">

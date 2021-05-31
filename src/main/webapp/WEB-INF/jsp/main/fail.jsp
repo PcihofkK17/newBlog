@@ -1,9 +1,9 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Basic Page Needs
     ================================================== -->
-    <meta charset="utf-8">
 
     <!-- Favicons
     ================================================== -->
@@ -53,7 +53,7 @@
 
     <div class="container"> <!-- container -->
         <div class="section-header">
-            <h2>${hint}<span class="highlight"><strong><a href="">点击重试</a></strong></span></h2>
+            <h2>${hint}<span class="highlight"><strong><a href="/user/goRegister">点击重试</a></strong></span></h2>
             <h5><em>${wrongInfo}</em></h5>
             <div class="fancy"><span><img src="${pageContext.request.contextPath}/res/img/favicon.ico" alt="..."></span></div>
         </div>

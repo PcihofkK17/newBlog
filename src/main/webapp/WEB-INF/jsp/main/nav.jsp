@@ -1,4 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <nav id="tf-menu" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -21,8 +23,22 @@
                 <li><a href="#tf-process" class="scroll">排行榜</a></li>
                 <li><a href="#tf-pricing"></a></li>
                 <li><a href="#tf-blog"></a></li>
-                <li><a href="/home/toLoginPage" class="scroll">登录</a></li>
+                <c:choose>
+                    <c:when test="${currUser!=null}">
+                        <li><a href="" style="padding: auto;margin: auto"><img src="${pageContext.request.contextPath}/res/img/loginImg/avtar.png" height="40" width="40" class="img-circle img-responsive  center-block" /></a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li id="currUser"><a href="/home/toLoginPage" class="scroll">登录</a></li>
+                    </c:otherwise>
+                </c:choose>
+
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
+    <div id="alertInfo" class="alert alert-success navbar-fixed-top" style="display: none">
+    </div>
 </nav>
+
+
+
+

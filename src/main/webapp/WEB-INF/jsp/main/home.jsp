@@ -5,10 +5,6 @@
 <html>
 <head>
 
-
-
-
-
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/res/img/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/res/img/apple-touch-icon.png">
     <link rel="apple-touch-icon" sizes="72x72" href="${pageContext.request.contextPath}/res/img/apple-touch-icon-72x72.png">
@@ -20,6 +16,7 @@
     <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/res/css/style.css">
 
     <script src="${pageContext.request.contextPath}/res/js/jquery-1.11.2.min.js"></script>
+    <script src="${pageContext.request.contextPath}/res/js/bootstrap.min.js"></script>
     <script>
         var onPageNum;
         $(function(){
@@ -110,7 +107,7 @@
                             <ul class="list-inline metas pull-left"> <!-- post metas -->
                                 <li><a href="#">${blogArticle.userName}</a></li> <!-- meta author -->
                                 <li><a href="#">${blogArticle.commentNum}条评论</a></li> <!-- meta comments -->
-                                <li><a href="#">Read More</a></li> <!-- read more link -->
+                                <li><a href="/home/loadBlogArticle?articleID=${blogArticle.articleID}">阅读</a></li> <!-- read more link -->
                             </ul>
                             <ul class="list-inline meta-detail pull-right"> <!-- user meta interaction -->
                                 <li><a href=""><i class="fa fa-heart"></i></a>${blogArticle.likeNum}</li> <!-- like button -->

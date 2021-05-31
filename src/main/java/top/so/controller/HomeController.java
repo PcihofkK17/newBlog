@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import top.so.dto.BlogArticleDTO;
+import top.so.dto.CommentDTO;
 import top.so.service.BlogArticleService;
+import top.so.service.CommentService;
 
 import java.util.List;
 
@@ -17,6 +19,9 @@ import java.util.List;
 public class HomeController {
     @Autowired
     private BlogArticleService blogArticleService;
+    @Autowired
+    private CommentService commentService;
+
 
     @RequestMapping("")
     public ModelAndView home(BlogArticleDTO blogArticleDTO){
@@ -61,6 +66,12 @@ public class HomeController {
        blogArticleService.updateBlogArticle(blogArticleDTO);
        blogArticleDTO.setArticleContent(blogArticleDTO.getArticleContent().replaceAll("\\r|\\n","<br/>"));
        mv.addObject("blogArticleDTO",blogArticleDTO);
+       CommentDTO commentDTO = new CommentDTO();
+       commentDTO.setArticleID(articleID);
+       List<CommentDTO> commentDTOList = commentService.selectCommentWithPage(commentDTO,1);
+       if(!commentDTOList.isEmpty()){
+           mv.addObject("commentDTOList",commentDTOList);
+       }
         return mv;
     }
 
