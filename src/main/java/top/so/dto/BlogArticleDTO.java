@@ -5,11 +5,10 @@ public class BlogArticleDTO {
     private String articleName;
     private String genTime;
     private String articleContent;
+    private String userName;
     private int readNum;
     private int likeNum;
     private int commentNum;
-    private String userName;
-
     public String getArticleName() {
         return articleName;
     }

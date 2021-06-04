@@ -19,7 +19,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="home.html" class="scroll">主页</a></li>
                 <li><a href="Blog Column.html" class="scroll">博客专栏 </a></li>
-                <li><a href="#tf-works" class="scroll">我的博客</a></li>
+                <li><a href="/myBlog" class="scroll">我的博客</a></li>
                 <li><a href="#tf-process" class="scroll">排行榜</a></li>
                 <li><a href="#tf-pricing"></a></li>
                 <li><a href="#tf-blog"></a></li>
@@ -35,8 +35,8 @@
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
-    <div id="alertInfo" class="alert alert-success navbar-fixed-top" style="display: none">
-    </div>
+    <div id="alertInfo" class="alert alert-success navbar-fixed-top" style="display: none"></div>
+    <div id="alertWrong" class="alert alert-danger" style="display: none"></div>
 </nav>
 
 

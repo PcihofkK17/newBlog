@@ -12,4 +12,5 @@ public interface BlogArticleService {
     public List<BlogArticleDTO> selectBlogArticleWithPage(BlogArticleDTO blogArticleDTO, int pageNum);
     public BlogArticleDTO selectBlogArticle(String articleID);
     public Boolean updateBlogArticle(BlogArticleDTO blogArticleDTO);
+    public Boolean insertBlogArticle(BlogArticleDTO blogArticleDTO);
 }

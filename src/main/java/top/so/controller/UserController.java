@@ -27,20 +27,20 @@ public class UserController {
       List<UserDTO> userDTOList =  userService.selectUser(userDTO);
       //判断结果集中是否有匹配的数据 如有则返回到主页
           for(UserDTO user:userDTOList){
-              mv.addObject("userDTO",user);
+//              mv.addObject("userDTO",user);
               mv.setViewName("redirect:/home");
-              modelMap.addAttribute("currUser",userDTO);
+              modelMap.addAttribute("currUser",user);
               return mv;
           }
       //否则 提示账号或密码错误
       mv.addObject("wrongInfo","账号或密码错误!");
-      mv.setViewName("login");
+      mv.setViewName("main/login");
         return mv;
     }
 
     @RequestMapping(value = "goRegister",method = {RequestMethod.GET})
     public ModelAndView goRegister(){
-        ModelAndView mv = new ModelAndView("register");
+        ModelAndView mv = new ModelAndView("main/register");
         return mv;
     }
 
@@ -56,12 +56,12 @@ public class UserController {
         }
         if(flag && userService.insertUser(userDTO)){
             mv.addObject("hasCount","yep");
-            mv.setViewName("login");
+            mv.setViewName("main/login");
         }
         else{
             mv.addObject("hint","注册失败！");
             mv.addObject("wrongInfo","注册账号重复！");
-            mv.setViewName("fail");
+            mv.setViewName("main/fail");
         }
         return mv;
     }

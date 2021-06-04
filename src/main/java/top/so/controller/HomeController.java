@@ -29,7 +29,7 @@ public class HomeController {
        for(int i=0;i<blogArticleDTOList.size();i++){
            blogArticleDTOList.get(i).setArticleContent(blogArticleDTOList.get(i).getArticleContent().replaceAll("\\r|\\n","").replace(" ","").substring(1,100));
        }
-        ModelAndView mv = new ModelAndView("home");
+        ModelAndView mv = new ModelAndView("main/home");
         //初始化页码
         mv.addObject("pageNum",1);
         mv.addObject("blogArticleDTOList",blogArticleDTOList);
@@ -39,7 +39,7 @@ public class HomeController {
     @RequestMapping("loadMoreBlogArticleList")
     public ModelAndView loadMoreBlogArticleList(BlogArticleDTO blogArticleDTO, int pageNum){
         List<BlogArticleDTO> blogArticleDTOList =blogArticleService.selectBlogArticleWithPage(blogArticleDTO,pageNum);
-        ModelAndView mv = new ModelAndView("home");
+        ModelAndView mv = new ModelAndView("main/home");
         if(blogArticleDTOList.isEmpty()){
             mv.addObject("blogArticleDTOList",null);
             return mv;
@@ -58,7 +58,7 @@ public class HomeController {
      */
     @RequestMapping(value = "loadBlogArticle",method = {RequestMethod.GET})
     public ModelAndView loadBlogArticle(@RequestParam("articleID")String articleID){
-        ModelAndView mv = new ModelAndView("blogPost");
+        ModelAndView mv = new ModelAndView("main/blogPost");
         //根据文章ID（articleID）查找文章
        BlogArticleDTO blogArticleDTO =  blogArticleService.selectBlogArticle(articleID);
        //
@@ -78,7 +78,7 @@ public class HomeController {
 
     @RequestMapping(value = "toLoginPage",method = {RequestMethod.GET})
     public ModelAndView toLoginPage(){
-        ModelAndView mv = new ModelAndView("login");
+        ModelAndView mv = new ModelAndView("main/login");
         return mv;
     }
 

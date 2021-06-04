@@ -39,5 +39,17 @@ public class BlogArticleDaoImpl extends AbstractBaseDao implements BlogArticleDa
         return false;
     }
 
+    /**
+     *
+     * @param blogArticle
+     * @return 成功插入则返回真，否则返回假
+     */
+    public Boolean insertBlogArticle(BlogArticle blogArticle) {
+        if(this.getSqlSession().insert(this.getClass().getName()+".insert",blogArticle)==1){
+            return true;
+        }
+        return false;
+    }
+
 
 }

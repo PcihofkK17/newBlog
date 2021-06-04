@@ -21,7 +21,7 @@ public class BlogController {
     @RequestMapping(value = "leaveComment",method = RequestMethod.POST)
     public ModelAndView leaveComment(CommentDTO commentDTO){
 
-        ModelAndView mv = new ModelAndView("blogPost");
+        ModelAndView mv = new ModelAndView("main/blogPost");
         if(commentService.insertComment(commentDTO)){
             //评论添加成功
         }
@@ -36,7 +36,7 @@ public class BlogController {
 
     @RequestMapping(value = "goPage",method = RequestMethod.POST)
     public ModelAndView goPage(String articleID,int pageNum){
-        ModelAndView mv = new ModelAndView("blogPost");
+        ModelAndView mv = new ModelAndView("main/blogPost");
         CommentDTO commentDTO = new CommentDTO();
         commentDTO.setArticleID(articleID);
         List<CommentDTO> commentDTOList = commentService.selectCommentWithPage(commentDTO,pageNum);

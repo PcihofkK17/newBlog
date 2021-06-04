@@ -16,14 +16,14 @@
     </resultMap>
 
     <sql id="table_name">blogarticle</sql>
-    <!--<insert id="insert" parameterType="top.so.entity.BlogArticle">-->
-        <!--INSERT INTO-->
-        <!--<include refid="table_name"/>-->
-        <!--(username,pwd,name,sex,age)-->
-        <!--VALUES (-->
-        <!--#{username},#{password},#{name},#{sex},#{age}-->
-        <!--)-->
-    <!--</insert>-->
+    <insert id="insert" parameterType="top.so.entity.BlogArticle">
+        INSERT INTO
+        <include refid="table_name"/>
+        (articleID,articleName,genTime,articleContent,readNum,likeNum,commentNum,userID)
+        VALUES (
+        #{articleID},#{articleName},#{genTime},#{articleContent},#{readNum},#{likeNum},#{commentNum},#{userID}
+        )
+    </insert>
 
     <!--<delete id="delete" parameterType="java.lang.Integer">-->
         <!--DELETE FROM-->

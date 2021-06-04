@@ -11,8 +11,11 @@ import top.so.entity.BlogArticle;
 import top.so.entity.User;
 import top.so.service.BlogArticleService;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -56,6 +59,15 @@ public class BlogArticleServiceImpl implements BlogArticleService {
         return blogArticleDao.updateBlogArticle(DTOToPOJO(blogArticleDTO));
     }
 
+    public Boolean insertBlogArticle(BlogArticleDTO blogArticleDTO) {
+
+        UUID uuid = UUID.randomUUID();
+        blogArticleDTO.setArticleID(String.valueOf(uuid).replaceAll("-",""));
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        blogArticleDTO.setGenTime(formatter.format(date));
+        return blogArticleDao.insertBlogArticle(DTOToPOJO(blogArticleDTO));
+    }
 
 
     /**
