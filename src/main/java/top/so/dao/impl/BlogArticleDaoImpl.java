@@ -20,7 +20,7 @@ public class BlogArticleDaoImpl extends AbstractBaseDao implements BlogArticleDa
 
     public List<BlogArticle> selectWithPage(BlogArticle blogArticle, int pageNum) {
        // pageNum:页码 pageSize每一页数据数量
-        PageHelper.startPage(pageNum,2);
+        PageHelper.startPage(pageNum,6);
 
         return this.getSqlSession().selectList(this.getClass().getName()+".selectAll",blogArticle);
     }

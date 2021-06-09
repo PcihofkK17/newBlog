@@ -157,8 +157,8 @@
                             <li><a href="#comments" class="scroll">${blogArticleDTO.commentNum} 条评论</a></li> <!-- meta comments -->
                         </ul>
 
-                        <img src="http://placehold.it/800px500" class="img-responsive" alt="...">
-
+                        <br>
+                        <br>  <br>
                        <span>${blogArticleDTO.articleContent}</span>
                         <br>
                         <br>

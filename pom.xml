@@ -17,13 +17,10 @@
     <spring_batch_version>2.2.2.RELEASE</spring_batch_version>
     <spring_data_commons_version>1.6.3.RELEASE</spring_data_commons_version>
     <aspectj_version>1.7.4</aspectj_version>
-
     <!-- c3p0包 -->
     <c3p0_version>0.9.1.2</c3p0_version>
-
     <!-- servlet -->
     <servlet_api_version>2.5</servlet_api_version>
-
     <mysql_driver_version>5.1.28</mysql_driver_version>
     <!-- jackson -->
     <jackson_version>1.9.13</jackson_version>
@@ -33,6 +30,9 @@
   </properties>
 
   <dependencies>
+
+
+
 
     <dependency>
       <groupId>com.github.pagehelper</groupId>

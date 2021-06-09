@@ -1,5 +1,5 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +15,7 @@
     ================================================== -->
     <link rel="stylesheet" type="text/css"  href="${pageContext.request.contextPath}/res/css/style.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/res/css/responsive.css">
-
+    <script src="${pageContext.request.contextPath}/res/js/jquery-1.11.2.min.js"></script>
 </head>
 <body>
 
@@ -28,7 +28,7 @@
 ================================================== -->
 <div id="tf-features">
     <div class="section-header">
-        <h2>XXX的<span class="highlight"><strong>博客</strong></span></h2>
+        <h2>${currUser.loginName}的<span class="highlight"><strong>博客</strong></span></h2>
         <h5><em>你这家伙太懒了，什么都没有留下</em></h5>
         <div class="fancy"><span> <img src="${pageContext.request.contextPath}/res/img/loginImg/avtar.png" class="img-responsive" alt="Image"></span></div>
     </div>
@@ -79,13 +79,14 @@
                             <ul class="list-inline social">
                                 <li><a href="/myBlog/goWriteBlog" class="fa"> <span class="fa fa-pencil"></span></a></li> <!-- facebook link here -->
                             </ul>
+                        <c:forEach var="blogArticle" items="${blogArticleDTOList}" varStatus="vs">
                             <div class="post-wrap"> <!-- Post Wrapper -->
                                 <div class="media post"> <!-- post wrap -->
 
                                     <div class="media-body">
-                                        <p class="small">January 14, 2015</p>
-                                        <a href="#">
-                                            <h5 class="media-heading"><strong>Vel donec et scelerisque vestibulum. Condimentum aliquam, mollit magna velit nec</strong></h5>
+                                        <p class="small">${blogArticle.genTime}</p>
+                                        <a href="/home/loadBlogArticle?articleID=${blogArticle.articleID}">
+                                            <h5 class="media-heading"><strong>${blogArticle.articleName}</strong></h5>
                                         </a>
                                     </div>
                                 </div><!-- end post wrap -->
@@ -97,11 +98,12 @@
                                         <li><a href="#">详情</a></li> <!-- read more link -->
                                     </ul>
                                     <ul class="list-inline meta-detail pull-right"> <!-- user meta interaction -->
-                                        <li><a href="#"><i class="fa fa-heart"></i></a> 50</li> <!-- like button -->
-                                        <li><i class="fa fa-eye"></i> 110</li> <!-- no. of views -->
+                                        <li><a href="#"><i class="fa fa-heart"></i></a> ${blogArticle.likeNum}</li> <!-- like button -->
+                                        <li><i class="fa fa-eye"></i> ${blogArticle.readNum}</li> <!-- no. of views -->
                                     </ul>
                                 </div><!-- end Meta details -->
                             </div><!-- end Post Wrapper -->
+                        </c:forEach>
                         </div>
                         <!--文章管理结束段-->
                         <div role="tabpanel" class="tab-pane fade" id="f2"> <!-- feature #2 content -->
