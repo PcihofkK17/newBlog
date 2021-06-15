@@ -17,7 +17,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="home.html" class="scroll">主页</a></li>
+                <li><a href="/home" class="scroll">主页</a></li>
                 <li><a href="Blog Column.html" class="scroll">博客专栏 </a></li>
                 <li><a href="/myBlog" class="scroll">我的博客</a></li>
                 <li><a href="#tf-process" class="scroll">排行榜</a></li>

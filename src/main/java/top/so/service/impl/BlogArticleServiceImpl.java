@@ -69,6 +69,10 @@ public class BlogArticleServiceImpl implements BlogArticleService {
         return blogArticleDao.insertBlogArticle(DTOToPOJO(blogArticleDTO));
     }
 
+    public Boolean deleteBlogArticle(BlogArticleDTO blogArticleDTO) {
+        return blogArticleDao.deleteBlogArticle(DTOToPOJO(blogArticleDTO));
+    }
+
 
     /**
      * @Author so

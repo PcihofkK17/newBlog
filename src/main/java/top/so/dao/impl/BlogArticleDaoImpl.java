@@ -51,5 +51,17 @@ public class BlogArticleDaoImpl extends AbstractBaseDao implements BlogArticleDa
         return false;
     }
 
+    /**
+     *
+     * @param blogArticle
+     * @return 成功删除则返回真，否则返回假
+     */
+    public Boolean deleteBlogArticle(BlogArticle blogArticle) {
+        if(this.getSqlSession().delete(this.getClass().getName()+".delete",blogArticle)==1){
+            return true;
+        }
+        return false;
+    }
+
 
 }

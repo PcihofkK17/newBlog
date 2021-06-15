@@ -13,4 +13,5 @@ public interface BlogArticleService {
     public BlogArticleDTO selectBlogArticle(String articleID);
     public Boolean updateBlogArticle(BlogArticleDTO blogArticleDTO);
     public Boolean insertBlogArticle(BlogArticleDTO blogArticleDTO);
+    public Boolean deleteBlogArticle(BlogArticleDTO blogArticleDTO);
 }

@@ -25,11 +25,11 @@
         )
     </insert>
 
-    <!--<delete id="delete" parameterType="java.lang.Integer">-->
-        <!--DELETE FROM-->
-        <!--<include refid="table_name"/>-->
-        <!--WHERE id=#{id}-->
-    <!--</delete>-->
+    <delete id="delete" parameterType="top.so.entity.BlogArticle">
+        DELETE FROM
+        <include refid="table_name"/>
+        <include refid="condition"/>
+    </delete>
 
 
     <update id="update" parameterType="top.so.entity.BlogArticle">

@@ -208,7 +208,7 @@
                         <div class="media comment-block" id="commentList"> <!-- Comment Block #1 -->
                             <div class="media-left media-top">
                                 <a href="#">
-                                    <img class="media-object" src="http://placehold.it/90x90" alt="...">
+                                    <img class="media-object" src="${pageContext.request.contextPath}/res/img/loginImg/avtar.png" alt="...">
                                 </a>
                             </div>
                             <div class="media-body">

@@ -10,4 +10,5 @@ public interface BlogArticleDao {
     public List<BlogArticle> selectWithPage(BlogArticle blogArticle, int pageNum);
     public Boolean updateBlogArticle(BlogArticle blogArticle);
     public Boolean insertBlogArticle(BlogArticle blogArticle);
+    public Boolean deleteBlogArticle(BlogArticle blogArticle);
 }

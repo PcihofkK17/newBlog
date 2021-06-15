@@ -27,6 +27,7 @@ public class HomeController {
     public ModelAndView home(BlogArticleDTO blogArticleDTO){
         List<BlogArticleDTO> blogArticleDTOList =blogArticleService.selectBlogArticleWithPage(blogArticleDTO,1);
        for(int i=0;i<blogArticleDTOList.size();i++){
+           if(blogArticleDTOList.get(i).getArticleContent().length()>100)
            blogArticleDTOList.get(i).setArticleContent(blogArticleDTOList.get(i).getArticleContent().replaceAll("\\r|\\n","").replace(" ","").substring(1,100));
        }
         ModelAndView mv = new ModelAndView("main/home");
@@ -45,6 +46,7 @@ public class HomeController {
             return mv;
         }
         for(int i=0;i<blogArticleDTOList.size();i++){
+            if(blogArticleDTOList.get(i).getArticleContent().length()>100)
             blogArticleDTOList.get(i).setArticleContent(blogArticleDTOList.get(i).getArticleContent().replaceAll("\r|\n","").replace(" ","").substring(1,100));
         }
        mv.addObject("blogArticleDTOList",blogArticleDTOList);

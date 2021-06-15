@@ -18,36 +18,38 @@
     <script src="${pageContext.request.contextPath}/res/js/jquery-1.11.2.min.js"></script>
     <script src="${pageContext.request.contextPath}/res/js/bootstrap.js"></script>
     <script>
-        function publishBlog() {
+        function editArticle() {
+            var articleID = $("#articleID").val();
             var articleName = $("#articleName").val();
             var articleContent=$("#articleContent").val();
             var params={
+                articleID:articleID,
                 articleName:articleName,
                 articleContent:articleContent
             };
 
             $.ajax({
                 type: "POST",
-                url: "/myBlog/publishBlog",
+                url: "/myBlog/editArticle",
                 data: params,
                 dataType:"json", //ajax返回值设置为text（json格式也可用它返回，可打印出结果，也可设置成json）
                 success: function(data){
                     var status = data.isSuccess;
                     if(status=="true"){
 
-                        $("#optionInfo").text("发表成功");
+                        $("#optionInfo").text("修改成功");
                     }
                     else{
-                        $("#optionInfo").text("发表失败，请稍后重试");
+                        $("#optionInfo").text("修改失败，请稍后重试");
                         var failButton = $("#failButton").html();
                         if(failButton==""||failButton==null){
                             $("#buttons").append("<button id=\"failButton\" type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">继续尝试\n" +
-                            "\t\t\t\t</button>");
+                                "\t\t\t\t</button>");
                         }
                     }
                 },
-                error: function(date){
-                    alert("服务器错误。date=" + date);
+                error: function(data){
+                    alert("服务器错误。data=" + data);
                     return false;
                 }
             });
@@ -76,13 +78,14 @@
         <div class="comment">
             <h4 class="text-uppercase"></h4>
 
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
-                        <input name="articleName" id="articleName" type="text" class="form-control" placeholder="文章标题">
-                    </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <input name="articleID" id="articleID" type="hidden" value="${blogArticleDTO.articleID}" />
+                    <input name="articleName" id="articleName" type="text" class="form-control" value="${blogArticleDTO.articleName}" />
                 </div>
-                <textarea name="articleContent" id="articleContent" class="form-control" rows="6" placeholder="告诉我们，你的故事吧！"></textarea>
-                <button type="button" class="btn btn-default en-btn" data-toggle="modal" data-target="#myModal" onclick="publishBlog()">发表</button>
+            </div>
+            <textarea name="articleContent" id="articleContent" class="form-control" rows="20">${blogArticleDTO.articleContent}</textarea>
+            <button type="button" class="btn btn-default en-btn" data-toggle="modal" data-target="#myModal" onclick="editArticle()">确定修改</button>
         </div>
     </div> <!-- end Left content col 8 -->
 
